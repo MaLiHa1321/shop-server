@@ -32,6 +32,7 @@ async function run() {
       // Connect to the "insertDB" database and access its "haiku" collection
       const database = client.db("shopDB");
       const shopCollection = database.collection("shop");
+      const userCollection = database.collection('users')
 
 // create product
 
@@ -39,6 +40,14 @@ async function run() {
         const product = req.body;
         console.log(product)
         const result = await shopCollection.insertOne(product)
+        res.send(result)
+    })
+
+    // create user
+    app.post('/users', async(req,res)=>{
+        const newUser = req.body;
+        console.log(newUser)
+        const result = await userCollection.insertOne(newUser)
         res.send(result)
     })
 
