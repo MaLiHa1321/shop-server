@@ -57,6 +57,31 @@ app.delete('/shop/:id', async(req,res) =>{
     res.send(result)
 })
 
+// update product
+app.get('/shop/:id', async(req,res)=>{
+    const id = req.params.id;
+    const query = {_id: new ObjectId(id)}
+    const result = await shopCollection.findOne(query);
+    res.send(result)
+})
+
+app.put('/shop/:id', async(req,res) =>{
+    const id = req.params.id;
+    const filter = {_id : new ObjectId(id)};
+    const options = { upsert: true };
+    const updateProduct = req.body;
+    const product ={
+        $set : {
+            name: updateProduct.name,
+            quantity: updateProduct.quantity,
+            photo: updateProduct.photo
+        }
+    }
+    const result = await shopCollection.updateOne(filter,product,options)
+    res.send(result)
+
+})
+
 
 
 
