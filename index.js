@@ -58,6 +58,13 @@ app.get('/shop', async(req,res) =>{
     res.send(result)
 })
 
+// get users
+app.get('/users', async(req,res) =>{
+    const cursor = userCollection.find()
+    const result = await cursor.toArray();
+    res.send(result)
+})
+
 // delete product
 app.delete('/shop/:id', async(req,res) =>{
     const id = req.params.id;
